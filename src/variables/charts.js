@@ -54,6 +54,18 @@ let chart1_2_options = {
   },
 };
 
+let today = new Date();
+
+let year = today.getFullYear(); // 년도
+let month = today.getMonth() + 1;  // 월
+let date = today.getDate();  // 날짜
+let day = today.getDay();  // 요일
+
+
+var chart3Array = new Array(5);
+console.log(chart3Array);
+
+
 // #########################################
 // // // used inside src/views/Dashboard.js
 // #########################################
@@ -209,6 +221,7 @@ let chartExample2 = {
     gradientStroke.addColorStop(0.4, "rgba(29,140,248,0.0)");
     gradientStroke.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
 
+
     return {
       labels: ["JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
       datasets: [
@@ -239,81 +252,86 @@ let chartExample2 = {
 // // // used inside src/views/Dashboard.js
 // #########################################
 // 회사별 당일 차트
-let chartExample3 = {
-  data: (canvas) => {
-    let ctx = canvas.getContext("2d");
-
-    let gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
-
-    gradientStroke.addColorStop(1, "rgba(72,72,176,0.1)");
-    gradientStroke.addColorStop(0.4, "rgba(72,72,176,0.0)");
-    gradientStroke.addColorStop(0, "rgba(119,52,169,0)"); //purple colors
-
-    return {
-      labels: ["고고씽", "라임", "빔", "씽씽", "킥고잉"],
-      datasets: [
-        {
-          label: "Company",
-          fill: true,
-          backgroundColor: gradientStroke,
-          hoverBackgroundColor: gradientStroke,
-          borderColor: "#d048b6",
-          borderWidth: 2,
-          borderDash: [],
-          borderDashOffset: 0.0,
-          data: [10, 20, 10, 30, 10, 35],
-        },
-      ],
-    };
-  },
-  options: {
-    maintainAspectRatio: false,
-    legend: {
-      display: false,
-    },
-    tooltips: {
-      backgroundColor: "#f5f5f5",
-      titleFontColor: "#333",
-      bodyFontColor: "#666",
-      bodySpacing: 4,
-      xPadding: 12,
-      mode: "nearest",
-      intersect: 0,
-      position: "nearest",
-    },
-    responsive: true,
-    scales: {
-      yAxes: [
-        {
-          gridLines: {
-            drawBorder: false,
-            color: "rgba(225,78,202,0.1)",
-            zeroLineColor: "transparent",
-          },
-          ticks: {
-            suggestedMin: 0,
-            suggestedMax: 10,
-            padding: 20,
-            fontColor: "#9e9e9e",
-          },
-        },
-      ],
-      xAxes: [
-        {
-          gridLines: {
-            drawBorder: false,
-            color: "rgba(225,78,202,0.1)",
-            zeroLineColor: "transparent",
-          },
-          ticks: {
-            padding: 20,
-            fontColor: "#9e9e9e",
-          },
-        },
-      ],
-    },
-  },
-};
+// let chartExample3 = {
+//
+//   // brand=chart3Bound(dataList);
+//
+//
+//
+//   data: (canvas) => {
+//     let ctx = canvas.getContext("2d");
+//
+//     let gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+//
+//     gradientStroke.addColorStop(1, "rgba(72,72,176,0.1)");
+//     gradientStroke.addColorStop(0.4, "rgba(72,72,176,0.0)");
+//     gradientStroke.addColorStop(0, "rgba(119,52,169,0)"); //purple colors
+//
+//     return {
+//       labels: ["고고씽", "라임", "빔", "씽씽", "킥고잉"],
+//       datasets: [
+//         {
+//           label: "Company",
+//           fill: true,
+//           backgroundColor: gradientStroke,
+//           hoverBackgroundColor: gradientStroke,
+//           borderColor: "#d048b6",
+//           borderWidth: 2,
+//           borderDash: [],
+//           borderDashOffset: 0.0,
+//           data: [10, 20, 10, 30, 10, 35],
+//         },
+//       ],
+//     };
+//   },
+//   options: {
+//     maintainAspectRatio: false,
+//     legend: {
+//       display: false,
+//     },
+//     tooltips: {
+//       backgroundColor: "#f5f5f5",
+//       titleFontColor: "#333",
+//       bodyFontColor: "#666",
+//       bodySpacing: 4,
+//       xPadding: 12,
+//       mode: "nearest",
+//       intersect: 0,
+//       position: "nearest",
+//     },
+//     responsive: true,
+//     scales: {
+//       yAxes: [
+//         {
+//           gridLines: {
+//             drawBorder: false,
+//             color: "rgba(225,78,202,0.1)",
+//             zeroLineColor: "transparent",
+//           },
+//           ticks: {
+//             suggestedMin: 0,
+//             suggestedMax: 10,
+//             padding: 20,
+//             fontColor: "#9e9e9e",
+//           },
+//         },
+//       ],
+//       xAxes: [
+//         {
+//           gridLines: {
+//             drawBorder: false,
+//             color: "rgba(225,78,202,0.1)",
+//             zeroLineColor: "transparent",
+//           },
+//           ticks: {
+//             padding: 20,
+//             fontColor: "#9e9e9e",
+//           },
+//         },
+//       ],
+//     },
+//   },
+// };
 
 // #########################################
 // // // used inside src/views/Dashboard.js
@@ -407,6 +425,6 @@ const chartExample4 = {
 module.exports = {
   chartExample1, // in src/views/Dashboard.js
   chartExample2, // in src/views/Dashboard.js
-  chartExample3, // in src/views/Dashboard.js
+  // chartExample3, // in src/views/Dashboard.js
   chartExample4, // in src/views/Dashboard.js
 };

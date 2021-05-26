@@ -51,10 +51,20 @@ import {
   chartExample4,
 } from "variables/charts.js";
 
+let global;
+
 function Dashboard(props) {
   const [bigChartData, setbigChartData] = React.useState("data1");
   const [dataList,setDataList]=useState([]);
+  const [ modalOpen, setModalOpen ] = useState(false);  //모달 state
+  const [selectKick,setSelectKick]=useState([])
 
+  const openModal = () => {
+    setModalOpen(true);
+  }
+  const closeModal = () => {
+    setModalOpen(false);
+  }
 
   const setBgChartData = (name) => {
     setbigChartData(name);
@@ -73,6 +83,90 @@ function Dashboard(props) {
     take();
   }, []);
   console.log(dataList);
+
+  global=dataList;
+
+  const chartExample3 = {
+
+    // brand=chart3Bound(dataList);
+
+    data: (canvas) => {
+      let ctx = canvas.getContext("2d");
+
+      let gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+
+      gradientStroke.addColorStop(1, "rgba(72,72,176,0.1)");
+      gradientStroke.addColorStop(0.4, "rgba(72,72,176,0.0)");
+      gradientStroke.addColorStop(0, "rgba(119,52,169,0)"); //purple colors
+
+      return {
+
+
+        labels: ["고고씽", "라임", "빔", "씽씽", "킥고잉"],
+        datasets: [
+          {
+            label: "Company",
+            fill: true,
+            backgroundColor: gradientStroke,
+            hoverBackgroundColor: gradientStroke,
+            borderColor: "#d048b6",
+            borderWidth: 2,
+            borderDash: [],
+            borderDashOffset: 0.0,
+            data: [10, 20, 10, 30, 10, 35],
+          },
+        ],
+      };
+    },
+    options: {
+      maintainAspectRatio: false,
+      legend: {
+        display: false,
+      },
+      tooltips: {
+        backgroundColor: "#f5f5f5",
+        titleFontColor: "#333",
+        bodyFontColor: "#666",
+        bodySpacing: 4,
+        xPadding: 12,
+        mode: "nearest",
+        intersect: 0,
+        position: "nearest",
+      },
+      responsive: true,
+      scales: {
+        yAxes: [
+          {
+            gridLines: {
+              drawBorder: false,
+              color: "rgba(225,78,202,0.1)",
+              zeroLineColor: "transparent",
+            },
+            ticks: {
+              suggestedMin: 0,
+              suggestedMax: 10,
+              padding: 20,
+              fontColor: "#9e9e9e",
+            },
+          },
+        ],
+        xAxes: [
+          {
+            gridLines: {
+              drawBorder: false,
+              color: "rgba(225,78,202,0.1)",
+              zeroLineColor: "transparent",
+            },
+            ticks: {
+              padding: 20,
+              fontColor: "#9e9e9e",
+            },
+          },
+        ],
+      },
+    },
+  };
+  console.log(selectKick);
 
   return (
     <>
@@ -122,25 +216,22 @@ function Dashboard(props) {
           </Col>
         </Row>
         <Row>
-
-          {/*<Col lg="4">*/}
-          {/*  <Card className="card-chart">*/}
-          {/*    <CardHeader>*/}
-          {/*      <h5 className="card-category">Completed Tasks</h5>*/}
-          {/*      <CardTitle tag="h3">*/}
-          {/*        <i className="tim-icons icon-send text-success" /> 12,100K*/}
-          {/*      </CardTitle>*/}
-          {/*    </CardHeader>*/}
-          {/*    <CardBody>*/}
-          {/*      <div className="chart-area">*/}
-          {/*        <Line*/}
-          {/*          data={chartExample4.data}*/}
-          {/*          options={chartExample4.options}*/}
-          {/*        />*/}
-          {/*      </div>*/}
-          {/*    </CardBody>*/}
-          {/*  </Card>*/}
-          {/*</Col>*/}
+          {/* 이미지 화면 */}
+          <Col lg="4">
+            <Card className="card-chart">
+              <CardHeader>
+                <h5 className="card-category">image</h5>
+                <CardTitle tag="h3">
+                  <i className="tim-icons icon-send text-success" /> {selectKick.kickId}
+                </CardTitle>
+              </CardHeader>
+              <CardBody>
+                <div className="chart-area">
+                  {selectKick.image}
+                </div>
+              </CardBody>
+            </Card>
+          </Col>
           <Col>
             <Card>
               <CardHeader>
@@ -162,10 +253,10 @@ function Dashboard(props) {
                         dataList.map((kickrani) => {
                           return (
                               <tr>
-                                <td>{kickrani.kickId}</td>
-                                <td>{kickrani.brand}</td>
-                                <td>{kickrani.location}</td>
-                                <td>
+                                <td onClick={()=>setSelectKick(kickrani)}>{kickrani.kickId}</td>
+                                <td onClick={()=>setSelectKick(kickrani)}>{kickrani.brand}</td>
+                                <td onClick={()=>setSelectKick(kickrani)}>{kickrani.location}</td>
+                                <td onClick={()=>setSelectKick(kickrani)}>
                                   {
                                     (function(){
                                       if(kickrani.violation===1){
@@ -176,13 +267,9 @@ function Dashboard(props) {
                                         return ("헬멧 미착용 및 2인이상 탑승")
                                       }
                                     })()
-
-
                                   }
                                 </td>
-
-
-                                <td className="text-center">{kickrani.datetime}</td>
+                                <td className="text-center" onClick={()=>setSelectKick(kickrani)}>{kickrani.datetime}</td>
                               </tr>
                           );
                         })
