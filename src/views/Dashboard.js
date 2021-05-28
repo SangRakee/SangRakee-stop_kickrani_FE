@@ -22,6 +22,8 @@ import classNames from "classnames";
 // react plugin used to create charts
 import { Line, Bar } from "react-chartjs-2";
 
+// import kickimg from './kickimg';
+
 // reactstrap components
 import {
   Button,
@@ -176,20 +178,15 @@ function Dashboard(props) {
           <Col>
             <Card className="card-chart">
               <CardHeader>
-                <Row>
-                  <Col className="text-left" sm="6">
-                    <h5 className="card-category">전체 </h5>
-                    <CardTitle tag="h2">2021년</CardTitle>
-                  </Col>
-
-                </Row>
+                <h5 className="card-category">image</h5>
+                <CardTitle tag="h3">
+                  <i className="tim-icons icon-send text-success" /> {selectKick.kickId}
+                </CardTitle>
               </CardHeader>
               <CardBody>
                 <div className="chart-area">
-                  <Line
-                    data={chartExample1[bigChartData]}
-                    options={chartExample1.options}
-                  />
+                  {/*<img src={''}/>*/}
+                  <img src={process.env.PUBLIC_URL +"/images/"+selectKick.image+".png"} />
                 </div>
               </CardBody>
             </Card>
@@ -217,21 +214,22 @@ function Dashboard(props) {
         </Row>
         <Row>
           {/* 이미지 화면 */}
-          <Col lg="4">
-            <Card className="card-chart">
-              <CardHeader>
-                <h5 className="card-category">image</h5>
-                <CardTitle tag="h3">
-                  <i className="tim-icons icon-send text-success" /> {selectKick.kickId}
-                </CardTitle>
-              </CardHeader>
-              <CardBody>
-                <div className="chart-area">
-                  {selectKick.image}
-                </div>
-              </CardBody>
-            </Card>
-          </Col>
+          {/*<Col lg="4">*/}
+          {/*  <Card className="card-chart">*/}
+          {/*    <CardHeader>*/}
+          {/*      <h5 className="card-category">image</h5>*/}
+          {/*      <CardTitle tag="h3">*/}
+          {/*        <i className="tim-icons icon-send text-success" /> {selectKick.kickId}*/}
+          {/*      </CardTitle>*/}
+          {/*    </CardHeader>*/}
+          {/*    <CardBody>*/}
+          {/*      <div className="chart-area">*/}
+          {/*        /!*<img src={''}/>*!/*/}
+          {/*        <img src={process.env.PUBLIC_URL +"/images/"+selectKick.image+".png"} />*/}
+          {/*      </div>*/}
+          {/*    </CardBody>*/}
+          {/*  </Card>*/}
+          {/*</Col>*/}
           <Col>
             <Card>
               <CardHeader>
