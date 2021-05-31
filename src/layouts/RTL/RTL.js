@@ -125,16 +125,16 @@ function RTL(props) {
         {({ color, changeColor }) => (
           <React.Fragment>
             <div className="wrapper">
-              <Sidebar
-                routes={routes}
-                rtlActive
-                logo={{
-                  outterLink: "https://www.creative-tim.com/",
-                  text: "الإبداعية تيم",
-                  imgSrc: logo,
-                }}
-                toggleSidebar={toggleSidebar}
-              />
+              {/*<Sidebar*/}
+              {/*  routes={routes}*/}
+              {/*  rtlActive*/}
+              {/*  logo={{*/}
+              {/*    outterLink: "https://www.creative-tim.com/",*/}
+              {/*    text: "الإبداعية تيم",*/}
+              {/*    imgSrc: logo,*/}
+              {/*  }}*/}
+              {/*  toggleSidebar={toggleSidebar}*/}
+              {/*/>*/}
               <div className="main-panel" ref={mainPanelRef} data={color}>
                 <RTLNavbar
                   brandText={getBrandText(location.pathname)}

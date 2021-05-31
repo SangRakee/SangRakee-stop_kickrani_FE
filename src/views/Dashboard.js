@@ -60,6 +60,16 @@ function Dashboard(props) {
   const [dataList,setDataList]=useState([]);
   const [ modalOpen, setModalOpen ] = useState(false);  //모달 state
   const [selectKick,setSelectKick]=useState([])
+  const [brandCnt, setBrandCnt]=useState([]);
+
+  const [alphaca,setAlphaca]=useState(0);
+  const [lime,setLime]=useState(0);
+  const [beam,setBeam]=useState(0);
+  const [xingxing,setXingXing]=useState(0);
+  const [kickgoing,setKickgoing]=useState(0);
+
+
+
 
   const openModal = () => {
     setModalOpen(true);
@@ -84,9 +94,32 @@ function Dashboard(props) {
     };
     take();
   }, []);
-  console.log(dataList);
-
   global=dataList;
+
+  // console.log(brandCnt);
+  useEffect(() => {
+    const daily = async () => {
+      await axios.get('http://127.0.0.1:8000/kickrani/dailychart/',
+          {
+          }
+      ).then((response)=> {
+        setBrandCnt(response.data);
+        setAlphaca(response.data[2]["num_brand"]);
+        setLime(response.data[3]["num_brand"]);
+        setBeam(response.data[4]["num_brand"]);
+        setXingXing(response.data[5]["num_brand"]);
+        setKickgoing(response.data[6]["num_brand"]);
+      });
+    };
+    daily();
+  }, []);
+
+
+  // console.log(dataList);
+  // console.log(brandCnt);
+  // console.log(brandCnt[0]["num_brand"]);
+
+  const total=alphaca+lime+beam+xingxing+kickgoing;
 
   const chartExample3 = {
 
@@ -104,7 +137,7 @@ function Dashboard(props) {
       return {
 
 
-        labels: ["고고씽", "라임", "빔", "씽씽", "킥고잉"],
+        labels: ["알파카", "라임", "빔", "씽씽", "킥고잉"],
         datasets: [
           {
             label: "Company",
@@ -115,7 +148,7 @@ function Dashboard(props) {
             borderWidth: 2,
             borderDash: [],
             borderDashOffset: 0.0,
-            data: [10, 20, 10, 30, 10, 35],
+            data: [alphaca, lime, beam, xingxing, kickgoing],
           },
         ],
       };
@@ -168,7 +201,7 @@ function Dashboard(props) {
       },
     },
   };
-  console.log(selectKick);
+  // console.log(selectKick);
 
   return (
     <>
@@ -178,7 +211,7 @@ function Dashboard(props) {
           <Col>
             <Card className="card-chart">
               <CardHeader>
-                <h5 className="card-category">image</h5>
+                <h5 className="card-category">image {selectKick.image}</h5>
                 <CardTitle tag="h3">
                   <i className="tim-icons icon-send text-success" /> {selectKick.kickId}
                 </CardTitle>
@@ -186,7 +219,9 @@ function Dashboard(props) {
               <CardBody>
                 <div className="chart-area">
                   {/*<img src={''}/>*/}
-                  <img src={process.env.PUBLIC_URL +"/images/"+selectKick.image+".png"} />
+                  <img src={"https://team03-s3.s3.ap-northeast-3.amazonaws.com/image/" + selectKick.image + ".png"}/>
+                  {/*<img src={process.env.PUBLIC_URL +"/images/"+selectKick.image+".png"}/>*/}
+
                 </div>
               </CardBody>
             </Card>
@@ -194,10 +229,10 @@ function Dashboard(props) {
           <Col>
             <Card className="card-chart">
               <CardHeader>
-                <h5 className="card-category">20210511</h5>
+                <h5 className="card-category">업체별</h5>
                 <CardTitle tag="h3">
                   <i className="tim-icons icon-delivery-fast text-primary" />{" "}
-                  12번
+                  총 {total} 번
                 </CardTitle>
               </CardHeader>
               <CardBody>
@@ -248,11 +283,28 @@ function Dashboard(props) {
                   </thead>
                   <tbody>
                     {Array.isArray(dataList) && dataList.length ? (
-                        dataList.map((kickrani) => {
+                        dataList.slice(0).reverse().map((kickrani) => {
                           return (
                               <tr>
                                 <td onClick={()=>setSelectKick(kickrani)}>{kickrani.kickId}</td>
-                                <td onClick={()=>setSelectKick(kickrani)}>{kickrani.brand}</td>
+                                <td onClick={()=>setSelectKick(kickrani)}>
+                                  {/*{kickrani.brand}*/}
+                                  {
+                                    (function(){
+                                      if(kickrani.brand==="board_1"){
+                                        return ("알파카")
+                                      }else if(kickrani.brand==="board_2"){
+                                        return ("라임")
+                                      }else if(kickrani.brand==="board_3"){
+                                        return ("빔")
+                                      }else if(kickrani.brand==="board_4"){
+                                        return ("씽씽")
+                                      }else if(kickrani.brand==="board_5"){
+                                        return ("킥고잉")
+                                      }
+                                    })()
+                                  }
+                                </td>
                                 <td onClick={()=>setSelectKick(kickrani)}>{kickrani.location}</td>
                                 <td onClick={()=>setSelectKick(kickrani)}>
                                   {

@@ -62,10 +62,6 @@ let date = today.getDate();  // 날짜
 let day = today.getDay();  // 요일
 
 
-var chart3Array = new Array(5);
-console.log(chart3Array);
-
-
 // #########################################
 // // // used inside src/views/Dashboard.js
 // #########################################

@@ -106,15 +106,15 @@ function Admin(props) {
       {({ color, changeColor }) => (
         <React.Fragment>
           <div className="wrapper">
-            <Sidebar
-              routes={routes}
-              logo={{
-                outterLink: "https://www.creative-tim.com/",
-                text: "메뉴",
-                imgSrc: logo,
-              }}
-              toggleSidebar={toggleSidebar}
-            />
+            {/*<Sidebar*/}
+            {/*  routes={routes}*/}
+            {/*  logo={{*/}
+            {/*    outterLink: "https://www.creative-tim.com/",*/}
+            {/*    text: "메뉴",*/}
+            {/*    imgSrc: logo,*/}
+            {/*  }}*/}
+            {/*  toggleSidebar={toggleSidebar}*/}
+            {/*/>*/}
             <div className="main-panel" ref={mainPanelRef} data={color}>
               {/* 상단 로그인 routes */}
               <AdminNavbar
