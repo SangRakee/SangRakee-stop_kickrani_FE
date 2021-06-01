@@ -52,6 +52,7 @@ import {
   chartExample4,
 } from "variables/charts.js";
 
+
 let global;
 
 function Dashboard(props) {
@@ -60,8 +61,6 @@ function Dashboard(props) {
   const [ modalOpen, setModalOpen ] = useState(false);  //모달 state
   const [selectKick,setSelectKick]=useState([])
   const [brandCnt, setBrandCnt]=useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(10);
 
   const [alphaca,setAlphaca]=useState(0);
   const [lime,setLime]=useState(0);
@@ -194,7 +193,7 @@ function Dashboard(props) {
       <div className="content">
         <Row>
           {/* variables/charts.js의 chartExample1 데이터 넣기 */}
-          <Col>
+          <Col lg="2">
             <Card className="card-chart">
               <CardHeader>
                 <h5 className="card-category">image</h5>
@@ -205,7 +204,7 @@ function Dashboard(props) {
               <CardBody>
                 <div className="chart-area">
                   {/*<img src={''}/>*/}
-                  <img src={"https://team03-s3.s3.ap-northeast-3.amazonaws.com/image/" + selectKick.image + ".png"}/>
+                  <img align="left" height="200" src={"https://team03-s3.s3.ap-northeast-3.amazonaws.com/image/" + selectKick.image + ".png"}/>
                   {/*<img src={process.env.PUBLIC_URL +"/images/"+selectKick.image+".png"}/>*/}
 
                 </div>
