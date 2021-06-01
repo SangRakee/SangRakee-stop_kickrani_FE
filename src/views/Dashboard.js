@@ -22,7 +22,6 @@ import classNames from "classnames";
 // react plugin used to create charts
 import { Line, Bar } from "react-chartjs-2";
 
-// import kickimg from './kickimg';
 
 // reactstrap components
 import {
@@ -61,31 +60,20 @@ function Dashboard(props) {
   const [ modalOpen, setModalOpen ] = useState(false);  //모달 state
   const [selectKick,setSelectKick]=useState([])
   const [brandCnt, setBrandCnt]=useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(10);
 
   const [alphaca,setAlphaca]=useState(0);
   const [lime,setLime]=useState(0);
   const [beam,setBeam]=useState(0);
   const [xingxing,setXingXing]=useState(0);
   const [kickgoing,setKickgoing]=useState(0);
+  const [totalcnt,setTotalcnt]=useState(0);
 
 
-
-
-  const openModal = () => {
-    setModalOpen(true);
-  }
-  const closeModal = () => {
-    setModalOpen(false);
-  }
-
-  const setBgChartData = (name) => {
-    setbigChartData(name);
-  };
-
-  // console.log(dataList);
   useEffect(() => {
     const take = async () => {
-      await axios.get('http://localhost:8000/kickrani/',
+      await axios.get('http://127.0.0.1:8000/kickrani/',
           {
           }
       ).then((response)=> {
@@ -94,7 +82,6 @@ function Dashboard(props) {
     };
     take();
   }, []);
-  global=dataList;
 
   // console.log(brandCnt);
   useEffect(() => {
@@ -103,23 +90,22 @@ function Dashboard(props) {
           {
           }
       ).then((response)=> {
-        setBrandCnt(response.data);
-        setAlphaca(response.data[2]["num_brand"]);
+        setBrandCnt(response.data)
+        setAlphaca(response.data[0]["num_brand"]);
         setLime(response.data[3]["num_brand"]);
-        setBeam(response.data[4]["num_brand"]);
-        setXingXing(response.data[5]["num_brand"]);
-        setKickgoing(response.data[6]["num_brand"]);
+        setBeam(response.data[1]["num_brand"]);
+        setXingXing(response.data[4]["num_brand"]);
+        setKickgoing(response.data[2]["num_brand"]);
+        setTotalcnt(response.data[0]["num_brand"]+response.data[1]["num_brand"]+response.data[2]["num_brand"]+response.data[3]["num_brand"]+response.data[4]["num_brand"])
       });
     };
     daily();
   }, []);
 
+  console.log(brandCnt);
+  console.log(dataList);
 
-  // console.log(dataList);
-  // console.log(brandCnt);
-  // console.log(brandCnt[0]["num_brand"]);
-
-  const total=alphaca+lime+beam+xingxing+kickgoing;
+  // const total=alphaca+lime+beam+xingxing+kickgoing;
 
   const chartExample3 = {
 
@@ -211,7 +197,7 @@ function Dashboard(props) {
           <Col>
             <Card className="card-chart">
               <CardHeader>
-                <h5 className="card-category">image {selectKick.image}</h5>
+                <h5 className="card-category">image</h5>
                 <CardTitle tag="h3">
                   <i className="tim-icons icon-send text-success" /> {selectKick.kickId}
                 </CardTitle>
@@ -232,7 +218,7 @@ function Dashboard(props) {
                 <h5 className="card-category">업체별</h5>
                 <CardTitle tag="h3">
                   <i className="tim-icons icon-delivery-fast text-primary" />{" "}
-                  총 {total} 번
+                  총 {totalcnt} 번
                 </CardTitle>
               </CardHeader>
               <CardBody>
@@ -288,22 +274,22 @@ function Dashboard(props) {
                               <tr>
                                 <td onClick={()=>setSelectKick(kickrani)}>{kickrani.kickId}</td>
                                 <td onClick={()=>setSelectKick(kickrani)}>
-                                  {/*{kickrani.brand}*/}
-                                  {
-                                    (function(){
-                                      if(kickrani.brand==="board_1"){
-                                        return ("알파카")
-                                      }else if(kickrani.brand==="board_2"){
-                                        return ("라임")
-                                      }else if(kickrani.brand==="board_3"){
-                                        return ("빔")
-                                      }else if(kickrani.brand==="board_4"){
-                                        return ("씽씽")
-                                      }else if(kickrani.brand==="board_5"){
-                                        return ("킥고잉")
-                                      }
-                                    })()
-                                  }
+                                  {kickrani.brand}
+                                  {/*{*/}
+                                  {/*  (function(){*/}
+                                  {/*    if(kickrani.brand==="board_1"){*/}
+                                  {/*      return ("알파카")*/}
+                                  {/*    }else if(kickrani.brand==="board_2"){*/}
+                                  {/*      return ("라임")*/}
+                                  {/*    }else if(kickrani.brand==="board_3"){*/}
+                                  {/*      return ("빔")*/}
+                                  {/*    }else if(kickrani.brand==="board_4"){*/}
+                                  {/*      return ("씽씽")*/}
+                                  {/*    }else if(kickrani.brand==="board_5"){*/}
+                                  {/*      return ("킥고잉")*/}
+                                  {/*    }*/}
+                                  {/*  })()*/}
+                                  {/*}*/}
                                 </td>
                                 <td onClick={()=>setSelectKick(kickrani)}>{kickrani.location}</td>
                                 <td onClick={()=>setSelectKick(kickrani)}>
@@ -328,6 +314,7 @@ function Dashboard(props) {
                     )}
                   </tbody>
                 </Table>
+
               </CardBody>
             </Card>
           </Col>
